@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
+import leftSideImg from "./assets/left_side.png";
+import rightSideImg from "./assets/right_side.png";
+import homeHeroBg from "./assets/background.png";
 
 
 const PINK="#f4a7c3",LPINK="#fce7f3",DARK="#7d2a4a",ACCENT="#c45c82",GOLD="#e8a0bc",TEXT="#3d1a2a",MUTED="#a06080",BORDER="#f0b8d0";
 const PINK_KNOWLEDGE_TAGS=["Culture","History","Concepts"];
 const PINK_EXAMPLE_AREAS=["Education","Law & Politics"];
+const EQUALITY_LEFT_IMAGE=leftSideImg;
+const EQUALITY_RIGHT_IMAGE=rightSideImg;
 
 const HEROINES_STYLES=`
   .heroines-grid {
@@ -48,7 +53,6 @@ const HEROINES_STYLES=`
     }
   }
 `;
-
 
 const KNOW=[
   {title:"What is gender inequality?",tag:"Definition",content:"Gender inequality refers to unequal treatment based on gender. It manifests in pay gaps, limited education access, restricted political participation, and cultural norms that limit women's autonomy."},
@@ -324,7 +328,7 @@ function Donut({pct,label,color,delay}){
 function KnowledgePage(){
   const [open,setOpen]=useState(null);
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="Knowledge" italic="Hub" sub="Explore gender inequality across history, culture, media, and global data."/>
       {KNOW.map((t,i)=>(
           <div key={i} style={{borderBottom:"1px solid "+BORDER,background:PINK_KNOWLEDGE_TAGS.includes(t.tag)?LPINK:"#fff",padding:"0 16px"}}>          <button onClick={()=>setOpen(open===i?null:i)} style={{width:"100%",background:"none",border:"none",padding:"18px 0",cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center",textAlign:"left"}}>
@@ -364,7 +368,7 @@ function KnowledgePage(){
 function ExamplesPage(){
   const [open,setOpen]=useState(null);
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="Recognizing" italic="Discrimination" sub="Gender discrimination appears in many forms. Learning to name it is the first step to ending it."/>
       {EXAMPS.map((cat,i)=>(
         <div key={i} style={{borderBottom:"1px solid "+BORDER,background:PINK_EXAMPLE_AREAS.includes(cat.area)?LPINK:"#fff",padding:"0 16px"}}>
@@ -383,7 +387,7 @@ function ExamplesPage(){
 
 function ConsequencesPage(){
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="The Cost of" italic="Inequality" sub="Gender inequality ripples across every dimension of society."/>
       <style>{`
         @keyframes fadeSlideUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
@@ -416,7 +420,7 @@ function ConsequencesPage(){
 
 function HeroinesPage(){
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="Women Who Changed" italic="the World" sub="Trailblazers from history and the activists shaping our present."/>
       <div className="heroines-grid" style={{background:BORDER,marginBottom:36}}>
         {HEROES.map((h,i)=>(
@@ -442,7 +446,7 @@ function HeroinesPage(){
 function ProjectsPage(){
   const [fTab,setFTab]=useState("fund");
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="Funding &" italic="Projects" sub="Grant opportunities, investment tools, and volunteer projects advancing gender equality worldwide."/>
       <div style={{display:"flex",gap:1,background:BORDER,marginBottom:28}}>
         {[["fund","💰 Funding"],["vol","🤝 Volunteer"]].map(([id,l])=>(
@@ -468,7 +472,7 @@ function ProjectsPage(){
 
 function HistoryPage(){
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="History of" italic="Feminism" sub="Four waves of feminist activism have reshaped the world."/>
       <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:1,background:BORDER,marginBottom:36}}>
         {[["First Wave","1840s–1920s","#be185d"],["Second Wave","1960s–1980s","#7c3aed"],["Third Wave","1990s–2000s","#0f766e"],["Fourth Wave","2010s–now","#1e40af"]].map(([w,y,c])=>(
@@ -523,7 +527,7 @@ function YouAreHeardPage(){
     setStory("");setDone(true);setTimeout(()=>setDone(false),3000);
   }
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="You Are" italic="Heard" sub="A safe, anonymous space to share your story. Every voice matters."/>
       <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:1,background:BORDER,marginBottom:24}}>
         {cats.map(c=>(
@@ -590,7 +594,7 @@ function CheckerPage(){
     .then(r=>r.json()).then(d=>{const txt=d.content.map(i=>i.text||"").join("").replace(/```json|```/g,"").trim();setResult(JSON.parse(txt));setLd(false);}).catch(()=>{setResult({error:true});setLd(false);});
   }
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="Discrimination" italic="Checker" sub="Describe a situation and we'll help you understand whether it reflects gender bias — with knowledge, context, and support."/>
       <div style={{background:LPINK,padding:"24px",marginBottom:24}}>
         <p style={{fontFamily:"Georgia,serif",fontSize:15,color:TEXT,margin:"0 0 6px"}}>Describe a situation or behavior</p>
@@ -647,7 +651,7 @@ function FlashcardsPage(){
     const nd=[...deck,nc];setDeck(nd);setCi(nd.length-1);setFlip(false);setNewText("");setNewAuthor("");setAdded(true);setTimeout(()=>setAdded(false),2500);
   }
   return(
-    <div style={{maxWidth:620,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="Quotes &" italic="Affirmations" sub="Words to inspire, affirm, and encourage. Browse the deck or add your own."/>
       <div style={{display:"flex",gap:1,background:BORDER,marginBottom:28}}>
         {[["browse","📖 Browse Cards"],["add","✏️ Add Your Own"]].map(([id,l])=>(
@@ -738,7 +742,7 @@ function MapPage(){
   const optsA=sortedNames.filter(function(n){return matches(n,searchA);});
   const optsB=sortedNames.filter(function(n){return matches(n,searchB);});
   return(
-    <div style={{maxWidth:740,margin:"0 auto",padding:"0 40px 60px"}}>
+    <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
       <SectionHero title="Gender Equality" italic="by Country" sub="Explore profiles for 80+ countries. Filter by region or compare two countries."/>
       <div style={{display:"flex",gap:1,background:BORDER,marginBottom:24}}>
         {[["browse","Browse Countries"],["compare","Compare Two"]].map(([id,l])=>(
@@ -928,7 +932,6 @@ export default function App(){
           height: 100%;
         }
         ${HEROINES_STYLES}
-
         @keyframes sectionIn {
           from {
             opacity: 0;
@@ -1045,6 +1048,98 @@ export default function App(){
           }
         }
 
+        .page-shell {
+          position: relative;
+          isolation: isolate;
+          width: 100%;
+        }
+
+        .page-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        .section-layout {
+          --side-space: clamp(108px, calc((100vw - 1100px) / 2), 336px);
+          display: grid;
+          grid-template-columns: 1fr;
+          align-items: stretch;
+          padding-inline: var(--side-space);
+        }
+
+        .section-side {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          width: var(--side-space);
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center 72%;
+          opacity: 0.95;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .section-side-left {
+          left: 0;
+          background-color: rgb(150 173 216);
+          background-image: url("${EQUALITY_LEFT_IMAGE}");
+        }
+
+        .section-side-right {
+          right: 0;
+          background-color: rgb(250 207 210);
+          background-image: url("${EQUALITY_RIGHT_IMAGE}");
+        }
+
+        .section-center {
+          min-width: 0;
+          display: flex;
+          justify-content: center;
+          padding: 0;
+        }
+
+        .page-box {
+          width: 100%;
+          max-width: 1100px;
+          background: #fff;
+          border: 1px solid ${BORDER};
+          box-shadow: 0 16px 40px rgba(125, 42, 74, 0.08);
+          overflow: hidden;
+        }
+
+        @media (max-width: 820px) {
+          .section-layout {
+            --side-space: 0px;
+            min-height: auto;
+            padding-inline: 0;
+          }
+
+          .section-side {
+            display: none;
+          }
+
+          .section-center {
+            padding: 0;
+          }
+        }
+
+        footer {
+          position: relative;
+          z-index: 2;
+          margin-top: 0;
+        }
+        .home-page button {
+          border-radius: 999px;
+        }
+
+        .home-hero {
+          background-color: rgb(241 150 167);
+          background-image: url("${homeHeroBg}");
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: contain;
+        }
         button { transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s; }
         button:hover { transform: translateY(-1px); }
         a { transition: opacity 0.2s; }
@@ -1059,7 +1154,7 @@ export default function App(){
           align-items: center;
           gap: 18px;
         }
-
+        
         .brand-btn {
           border: none;
           background: none;
@@ -1269,65 +1364,76 @@ export default function App(){
       </nav>
 
 
-      <div className="page-wrap" key={page}>
-      {page==="home"&&(
-        <div>
-          <div style={{background:PINK,padding:"56px 32px",textAlign:"center"}}>
-            <p style={{color:DARK,fontSize:11,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:18,fontWeight:600}}>Beijing+30 · UN Women · WEF 2025</p>
-            <h1 style={{fontFamily:"Georgia,serif",fontSize:44,fontWeight:400,color:TEXT,margin:"0 0 10px",lineHeight:1.15}}>A World's Eye View of<br/><em>Gender Equality</em></h1>
-            <p style={{color:DARK,fontSize:15,maxWidth:500,margin:"14px auto 28px",lineHeight:1.8}}>Knowledge, data, history, and stories illuminating the path toward a world where every person can thrive — <strong>regardless of gender.</strong></p>
-            <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              {[["knowledge","📚 Learn"],["heroines","🌟 Be Inspired"],["map","🌍 Explore"],["projects","🌸 Take Action"]].map(([id,l])=>(
-                <button key={id} onClick={()=>go(id)} style={{background:"none",border:"1px solid "+DARK,color:DARK,padding:"8px 18px",cursor:"pointer",fontSize:13,fontWeight:500,letterSpacing:"0.04em"}}>{l}</button>
-              ))}
-            </div>
-          </div>
-          <div style={{background:LPINK,padding:"40px"}}>
-            <div style={{maxWidth:740,margin:"0 auto"}}>
-              <p style={{textAlign:"center",color:MUTED,fontSize:11,letterSpacing:"0.12em",textTransform:"uppercase",fontWeight:600,marginBottom:28}}>Key Facts — 2025–2026</p>
-              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:1,background:BORDER}}>
-                {[["$342T","Cumulative economic gain possible by 2050 (UN Women 2025)"],["27.5%","Women in national parliaments globally (IPU 2026)"],["123 yrs","Years to close the global gender gap (WEF 2025)"]].map(([n,l])=>(
-                  <div key={n} style={{background:"#fff",padding:"24px",textAlign:"center"}}>
-                    <div style={{fontFamily:"Georgia,serif",fontSize:32,color:DARK,marginBottom:6}}>{n}</div>
-                    <p style={{fontSize:12,color:MUTED,lineHeight:1.6,margin:0}}>{l}</p>
+      <div className="page-shell">
+        <div className="page-wrap page-content" key={page}>
+          {page==="home"&&(
+            <div className="home-page">
+              <div className="home-hero" style={{padding:"56px 32px",textAlign:"center"}}>
+                <p style={{color:DARK,fontSize:11,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:18,fontWeight:600}}>Beijing+30 · UN Women · WEF 2025</p>
+                <h1 style={{fontFamily:"Georgia,serif",fontSize:44,fontWeight:400,color:TEXT,margin:"0 0 10px",lineHeight:1.15}}>A World's Eye View of<br/><em>Gender Equality</em></h1>
+                <p style={{color:DARK,fontSize:15,maxWidth:500,margin:"14px auto 28px",lineHeight:1.8}}>Knowledge, data, history, and stories illuminating the path toward a world where every person can thrive — <strong>regardless of gender.</strong></p>
+                <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+                  {[["knowledge","📚 Learn"],["heroines","🌟 Be Inspired"],["map","🌍 Explore"],["projects","🌸 Take Action"]].map(([id,l])=>(
+                    <button key={id} onClick={()=>go(id)} style={{background:"rgba(244, 167, 195, 0.62)",border:"1px solid rgba(125, 42, 74, 0.22)",color:DARK,padding:"8px 18px",cursor:"pointer",fontSize:13,fontWeight:500,letterSpacing:"0.04em"}}>{l}</button>
+                  ))}
+                </div>
+              </div>
+              <div style={{background:LPINK,padding:"32px"}}>
+                <div style={{maxWidth:900,margin:"0 auto"}}>
+                  <p style={{textAlign:"center",color:MUTED,fontSize:11,letterSpacing:"0.12em",textTransform:"uppercase",fontWeight:600,marginBottom:28}}>Key Facts — 2025–2026</p>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:1,background:BORDER}}>
+                    {[["$342T","Cumulative economic gain possible by 2050 (UN Women 2025)"],["27.5%","Women in national parliaments globally (IPU 2026)"],["123 yrs","Years to close the global gender gap (WEF 2025)"]].map(([n,l])=>(
+                      <div key={n} style={{background:"#fff",padding:"24px",textAlign:"center"}}>
+                        <div style={{fontFamily:"Georgia,serif",fontSize:32,color:DARK,marginBottom:6}}>{n}</div>
+                        <p style={{fontSize:12,color:MUTED,lineHeight:1.6,margin:0}}>{l}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+              </div>
+              <div style={{maxWidth:900,margin:"0 auto",padding:"32px"}}>
+                <p style={{textAlign:"center",color:MUTED,fontSize:11,letterSpacing:"0.12em",textTransform:"uppercase",fontWeight:600,marginBottom:28}}>Explore the Hub</p>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+                  {[{id:"knowledge",icon:"📚",title:"Knowledge Hub",desc:"Understand gender inequality — from definitions to global data, culture to media."},{id:"heroines",icon:"🌟",title:"Heroines",desc:"Meet the women who fought for change and the activists shaping our present."},{id:"map",icon:"🌍",title:"World Map",desc:"Explore gender equality data for 80+ countries across all continents."},{id:"projects",icon:"🌸",title:"Funding & Projects",desc:"Discover grants, funding opportunities, and volunteer projects worldwide."}].map(s=>(
+                    <div key={s.id} onClick={()=>go(s.id)} style={{border:"1px solid "+BORDER,padding:"22px",cursor:"pointer",background:"#fff",transition:"transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s cubic-bezier(0.4,0,0.2,1)"}}
+                      onMouseEnter={function(e){e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 10px 24px rgba(125,42,74,0.12)";}}
+                      onMouseLeave={function(e){e.currentTarget.style.transform="translateY(0)";e.currentTarget.style.boxShadow="none";}}>
+                      <div style={{fontSize:26,marginBottom:10}}>{s.icon}</div>
+                      <h3 style={{fontFamily:"Georgia,serif",fontSize:16,fontWeight:400,margin:"0 0 6px",color:TEXT}}>{s.title}</h3>
+                      <p style={{fontSize:13,color:MUTED,margin:"0 0 14px",lineHeight:1.6}}>{s.desc}</p>
+                      <span style={{fontSize:11,color:ACCENT,fontWeight:600,letterSpacing:"0.06em",textTransform:"uppercase",borderBottom:"1px solid "+ACCENT}}>Explore →</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-          <div style={{maxWidth:740,margin:"0 auto",padding:"40px"}}>
-            <p style={{textAlign:"center",color:MUTED,fontSize:11,letterSpacing:"0.12em",textTransform:"uppercase",fontWeight:600,marginBottom:28}}>Explore the Hub</p>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
-              {[{id:"knowledge",icon:"📚",title:"Knowledge Hub",desc:"Understand gender inequality — from definitions to global data, culture to media."},{id:"heroines",icon:"🌟",title:"Heroines",desc:"Meet the women who fought for change and the activists shaping our present."},{id:"map",icon:"🌍",title:"World Map",desc:"Explore gender equality data for 80+ countries across all continents."},{id:"projects",icon:"🌸",title:"Funding & Projects",desc:"Discover grants, funding opportunities, and volunteer projects worldwide."}].map(s=>(
-                <div key={s.id} onClick={()=>go(s.id)} style={{border:"1px solid "+BORDER,padding:"22px",cursor:"pointer",background:"#fff",transition:"transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s cubic-bezier(0.4,0,0.2,1)"}}
-                  onMouseEnter={function(e){e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 10px 24px rgba(125,42,74,0.12)";}}
-                  onMouseLeave={function(e){e.currentTarget.style.transform="translateY(0)";e.currentTarget.style.boxShadow="none";}}>
-                  <div style={{fontSize:26,marginBottom:10}}>{s.icon}</div>
-                  <h3 style={{fontFamily:"Georgia,serif",fontSize:16,fontWeight:400,margin:"0 0 6px",color:TEXT}}>{s.title}</h3>
-                  <p style={{fontSize:13,color:MUTED,margin:"0 0 14px",lineHeight:1.6}}>{s.desc}</p>
-                  <span style={{fontSize:11,color:ACCENT,fontWeight:600,letterSpacing:"0.06em",textTransform:"uppercase",borderBottom:"1px solid "+ACCENT}}>Explore →</span>
+          )}
+
+          {page!=="home"&&(
+            <div className="section-layout">
+              <div className="section-side section-side-left" aria-hidden="true" />
+              <div className="section-center">
+                <div className="page-box">
+                  {page==="knowledge"&&<KnowledgePage/>}
+                  {page==="examples"&&<ExamplesPage/>}
+                  {page==="consequences"&&<ConsequencesPage/>}
+                  {page==="heroines"&&<HeroinesPage/>}
+                  {page==="projects"&&<ProjectsPage/>}
+                  {page==="history"&&<HistoryPage/>}
+                  {page==="heard"&&<YouAreHeardPage/>}
+                  {page==="checker"&&<CheckerPage/>}
+                  {page==="flashcards"&&<FlashcardsPage/>}
+                  {page==="map"&&<MapPage/>}
                 </div>
-              ))}
+              </div>
+              <div className="section-side section-side-right" aria-hidden="true" />
             </div>
-          </div>
+          )}
         </div>
-      )}
-
-
-      {page==="knowledge"&&<KnowledgePage/>}
-      {page==="examples"&&<ExamplesPage/>}
-      {page==="consequences"&&<ConsequencesPage/>}
-      {page==="heroines"&&<HeroinesPage/>}
-      {page==="projects"&&<ProjectsPage/>}
-      {page==="history"&&<HistoryPage/>}
-      {page==="heard"&&<YouAreHeardPage/>}
-      {page==="checker"&&<CheckerPage/>}
-      {page==="flashcards"&&<FlashcardsPage/>}
-      {page==="map"&&<MapPage/>}
       </div>
 
 
-      <footer style={{background:PINK,padding:"28px 40px",marginTop:48,textAlign:"center"}}>
+      <footer style={{background:PINK,padding:"28px 40px",textAlign:"center"}}>
         <p style={{fontFamily:"Georgia,serif",fontSize:13,margin:"0 0 6px",color:TEXT}}>Gender Equality Hub</p>
         <p style={{fontSize:11,margin:0,lineHeight:1.7,color:DARK}}>Sources: UN Women Gender Snapshot 2025 · WEF Global Gender Gap Report 2025 · IPU 2026 · LinkedIn Global Talent Trends 2026</p>
       </footer>
