@@ -17,7 +17,7 @@ function anthropicProxy(env) {
       server.middlewares.use('/api/anthropic/messages', async (req, res, next) => {
         if (req.method !== 'POST') return next()
         try {
-          const apiKey = ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY
+          const apiKey = ANTHROPIC_API_KEY
           if (!apiKey) {
             res.statusCode = 500
             res.setHeader('Content-Type', 'application/json')
@@ -50,7 +50,7 @@ function anthropicProxy(env) {
       server.middlewares.use('/api/anthropic/messages', async (req, res, next) => {
         if (req.method !== 'POST') return next()
         try {
-          const apiKey = ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY
+          const apiKey = ANTHROPIC_API_KEY
           if (!apiKey) {
             res.statusCode = 500
             res.setHeader('Content-Type', 'application/json')
