@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { Buffer } from 'node:buffer'
 import process from 'node:process'
+ANTHROPIC_API_KEY=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
 
 async function readRequestBody(req) {
   const chunks = []
@@ -16,7 +17,7 @@ function anthropicProxy(env) {
       server.middlewares.use('/api/anthropic/messages', async (req, res, next) => {
         if (req.method !== 'POST') return next()
         try {
-          const apiKey = env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY
+          const apiKey = ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY
           if (!apiKey) {
             res.statusCode = 500
             res.setHeader('Content-Type', 'application/json')
@@ -49,7 +50,7 @@ function anthropicProxy(env) {
       server.middlewares.use('/api/anthropic/messages', async (req, res, next) => {
         if (req.method !== 'POST') return next()
         try {
-          const apiKey = env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY
+          const apiKey = ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY
           if (!apiKey) {
             res.statusCode = 500
             res.setHeader('Content-Type', 'application/json')
