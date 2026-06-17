@@ -81,15 +81,6 @@ function anthropicProxy(env) {
   }
 }
 
-// https://vite.dev/config/
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
-
-  return {
-    plugins: [react(), anthropicProxy(env)],
-  }
-})
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
