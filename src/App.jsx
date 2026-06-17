@@ -270,8 +270,21 @@ function AskBox({topic}){
   const [q,setQ]=useState("");const [a,setA]=useState(null);const [ld,setLd]=useState(false);
   function ask(){
     if(!q.trim())return; setLd(true); setA(null);
-    fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:500,messages:[{role:"user",content:"You are an educator on gender equality and "+topic+". Answer in 3-4 sentences, ending with one empowering sentence. Question: "+q}]})})
-      .then(r=>r.json()).then(d=>{setA(d.content.map(i=>i.text||"").join(""));setLd(false);}).catch(()=>{setA("Something went wrong.");setLd(false);});
+    callAnthropic([
+      {
+        role: "user",
+        content: "You are an educator on gender equality and " + topic + ". Answer in 3-4 sentences, ending with one empowering sentence. Question: " + q,
+      },
+    ], 500)
+      .then((d) => {
+        const answer = d?.content?.map((i) => i.text || "").join("").trim();
+        setA(answer || buildTopicAnswer(topic, q));
+        setLd(false);
+      })
+      .catch(() => {
+        setA(buildTopicAnswer(topic, q));
+        setLd(false);
+      });
   }
   return(
     <div style={{marginTop:32,borderTop:"1px solid "+BORDER,paddingTop:24}}>
@@ -321,6 +334,44 @@ function Donut({pct,label,color,delay}){
       <span style={{fontSize:11,color:MUTED,maxWidth:80,lineHeight:1.5}}>{label}</span>
     </div>
   );
+}
+
+function buildTopicAnswer(topic, question){
+  const text = (question || "").toLowerCase();
+  const easyAnswer = [
+    "Gender inequality often shows up in pay, power, safety, and access to opportunity.",
+    "A useful first step is to name the pattern, then look for who benefits and who is excluded.",
+    "Small changes in language, policy, and daily habits can make a real difference over time.",
+    "You’re asking a thoughtful question, and that already moves the conversation forward.",
+  ];
+
+  let focus = "the broader gender-equality picture";
+  if (text.includes("work") || text.includes("job") || text.includes("manager")) focus = "workplace dynamics";
+  else if (text.includes("school") || text.includes("education") || text.includes("student")) focus = "education access";
+  else if (text.includes("law") || text.includes("politics") || text.includes("vote")) focus = "law and political power";
+  else if (text.includes("media") || text.includes("tv") || text.includes("film")) focus = "media and representation";
+  else if (text.includes("culture") || text.includes("tradition")) focus = "cultural norms";
+
+  return `Thinking about ${topic}, this sounds tied to ${focus}. ${easyAnswer[0]} ${easyAnswer[1]} ${easyAnswer[2]} ${easyAnswer[3]}`;
+}
+
+async function callAnthropic(messages, max_tokens){
+  const response = await fetch("/api/anthropic/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-6",
+      max_tokens,
+      messages,
+    }),
+  });
+
+  const text = await response.text();
+  if (!response.ok) {
+    throw new Error(text || `Anthropic request failed (${response.status})`);
+  }
+
+  return JSON.parse(text);
 }
 
 
@@ -590,8 +641,21 @@ function CheckerPage(){
   const [encIdx]=useState(function(){return Math.floor(Math.random()*encouragements.length);});
   function analyze(){
     if(!input.trim())return; setLd(true); setResult(null);
-    fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:600,messages:[{role:"user",content:"You are an expert on gender equality and a supportive, encouraging counselor. A user described: "+JSON.stringify(input)+". Analyze whether it reflects gender bias. Respond ONLY with a valid JSON object (no markdown) with: is_discrimination (boolean), verdict (1 sentence), explanation (2-3 sentences), encouragement (2-3 warm, empowering sentences directly encouraging the user, regardless of the verdict), tip (1 practical sentence)."}]})})
-    .then(r=>r.json()).then(d=>{const txt=d.content.map(i=>i.text||"").join("").replace(/```json|```/g,"").trim();setResult(JSON.parse(txt));setLd(false);}).catch(()=>{setResult({error:true});setLd(false);});
+    callAnthropic([
+      {
+        role: "user",
+        content: "You are an expert on gender equality and a supportive, encouraging counselor. A user described: " + JSON.stringify(input) + ". Analyze whether it reflects gender bias. Respond ONLY with a valid JSON object (no markdown) with: is_discrimination (boolean), verdict (1 sentence), explanation (2-3 sentences), encouragement (2-3 warm, empowering sentences directly encouraging the user, regardless of the verdict), tip (1 practical sentence).",
+      },
+    ], 600)
+      .then((d) => {
+        const txt = (d?.content || []).map((i) => i.text || "").join("").replace(/```json|```/g, "").trim();
+        setResult(JSON.parse(txt));
+        setLd(false);
+      })
+      .catch(() => {
+        setResult({ error: true });
+        setLd(false);
+      });
   }
   return(
     <div style={{maxWidth:1100,margin:"0 auto",padding:"0 24px 44px"}}>
